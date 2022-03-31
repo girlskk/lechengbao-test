@@ -9,14 +9,15 @@ func Perm(a []rune, f func([]rune)) {
 
 // 对索引 i 从 0 到 len(a) - 1，实现递归函数 perm().
 func perm(a []rune, f func([]rune), i int) {
-	if i > len(a)-1 {
-		return
-	}
-	for k := 1; k <= len(a)-1; k++ {
-		swap(a, k-1, k)
+	if i == len(a)-1 {
 		f(a)
 	}
-	perm(a, f, i+1)
+
+	for s := i; s < len(a); s++ {
+		swap(a, i, s)
+		perm(a, f, i+1)
+		swap(a, i, s)
+	}
 }
 
 func swap(a []rune, i, j int) {
